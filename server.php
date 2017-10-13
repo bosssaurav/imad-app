@@ -11,5 +11,5 @@ return call_user_func(function () {
         return false;
     }
  
-    require_once $publicDir . '/index.php';
+    require_once $publicDir . 'login/login.php';
 });
