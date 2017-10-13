@@ -2,29 +2,34 @@ var express = require('express');
 var morgan = require('morgan');
 var http = require('http').Server(app);
 var path = require('path');
+var app = express();
+app.use(morgan('combined'));
+
 
 var sys = require("sys"),
 http = require("http");
 
-
-var app = express();
-app.use(morgan('combined'));
-
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'login/', 'login.php'));
+var phpServer = require('node-php-server');
+ 
+// Create a PHP Server 
+phpServer.createServer({
+    port: 80,
+    hostname: '127.0.0.1',
+    base: '.',
+    keepalive: false,
+    open: false,
+    bin: 'php',
+    router: __dirname + '/server.php'
 });
+ 
+// Close server 
+phpServer.close();
 
-app.get('/ui/style.css', function (req, res) {
-  res.sendFile(path.join(__dirname, 'login', 'style.css'));
-});
+
 
 app.get('/ui/style.css', function (req, res) {
   res.sendFile(path.join(__dirname, 'login', 'reset.css'));
 });
-app.get('/ui/madi.png', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', 'madi.png'));
-});
-
 
 // Do not change port, otherwise your app won't run on IMAD servers
 // Use 8080 only for local development if you already have apache running on 80
