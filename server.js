@@ -1,12 +1,17 @@
 var express = require('express');
 var morgan = require('morgan');
+var http = require('http').Server(app);
 var path = require('path');
+
+var sys = require("sys"),
+http = require("http");
+
 
 var app = express();
 app.use(morgan('combined'));
 
 app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'login', 'index.html'));
+  res.sendFile(path.join(__dirname, 'login/', 'login.php'));
 });
 
 app.get('/ui/style.css', function (req, res) {
